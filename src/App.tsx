@@ -1,11 +1,9 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import NavBarComponent from './components/homepage/navbar';
-import ProductComericalComponent from './components/homepage/productComercial';
-import MoreProductsComponent from './components/homepage/moreProducts';
-import CategoriesComponent from './components/homepage/categories';
-import OfferComponent from './components/homepage/offer';
+import NavBarComponent from './components/Navbar';
+import ProductComericalComponent from './components/homepage/ProductComercial';
+import MoreProductsComponent from './components/homepage/MoreProducts';
+import CategoriesComponent from './components/homepage/Categories';
+import OfferComponent from './components/homepage/Offer';
 
 function App() {
   return (

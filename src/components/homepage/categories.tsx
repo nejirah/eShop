@@ -1,65 +1,40 @@
 import React from "react";
-import {Grid, Typography,  Button, Card} from "@mui/material"
-import { amber,grey } from "@mui/material/colors";
-import HeadphonesIcon from '@mui/icons-material/Headphones';
-import MusicNoteIcon from '@mui/icons-material/MusicNote';
-import MonitorIcon from '@mui/icons-material/Monitor';
-import CameraAltIcon from '@mui/icons-material/CameraAlt';
-import ViewInArIcon from '@mui/icons-material/ViewInAr';
-import VideocamIcon from '@mui/icons-material/Videocam';
+import {Grid, Typography} from "@mui/material"
+import { amber} from "@mui/material/colors";
+import TypographyH4Component from "../TypographyH4";
+import TypographyH6Component from "../TypographyH6";
+import MainButtonComponent from "../Button";
+import CategoryCardComponent from "./CategoryCard";
 
-function CategoriesComponent(){
+const ContainerStyle = {
+    my:6,
+    justifyContent:"center"
+}
+
+const GridItemStyle = {
+    alignItems:"center",
+    display:"flex",
+    flexDirection:"column",
+    justifyContent:"center"
+}
+
+const CategoryNames = [{id:1, name:"Headphones"},{id:2, name:"Beats"}, {id:3, name:"Notebooks"}, {id:4, name:"Cameras"}, {id:5, name:"Gaming"}, {id:6, name:"Video"}];
+
+const CategoriesComponent = () => {
     return(
-    <Grid container my={6} justifyContent={"center"}>
-        <Grid item xs={12}>
+    <Grid container sx={ContainerStyle}>
+        <Grid item xs={12} sx={GridItemStyle}>
             <Typography variant="body1" color={amber[500]}>CATEGORIES</Typography>
-            <Typography variant="h4" fontWeight={"bold"}>Choose your product by categories</Typography>
-            <Typography variant="h6" color={"gray"}>Buy Music Instruments & Accessories Online:</Typography>
-            <Typography variant="h6" color={"gray"}>Securely and Comfortably</Typography>
-            <Button variant="contained" style={{textTransform:'none', margin:"30px"}} size="large">See all categories</Button>
+            <TypographyH4Component text="Choose your product by categories"></TypographyH4Component>
+            <TypographyH6Component color="gray" text="Buy Music Instruments & Accessories Online:"></TypographyH6Component>
+            <TypographyH6Component color="gray" text="Securely and Comfortably"></TypographyH6Component>
+            <MainButtonComponent margin="30px" text="See all categories"></MainButtonComponent>
         </Grid>
-        <Grid xs={10} style={{display:"flex"}} justifyContent={"center"} padding={3}>
-                <Grid item  xs={2} m={2}>
-                    <Card style={{padding:"15px", backgroundColor:"#f7fafe"}} variant="outlined">
-                        <HeadphonesIcon color="primary" fontSize="large"></HeadphonesIcon>
-                        <p>Headphones</p>
-                    </Card>
-                </Grid>
-                
-                <Grid item  xs={2} m={2}>
-                    <Card style={{padding:"15px", backgroundColor:"#f7fafe"}} variant="outlined">
-                        <MusicNoteIcon color="primary" fontSize="large"></MusicNoteIcon>
-                        <p>Beats</p>
-                    </Card>
-                </Grid>
 
-                <Grid item  xs={2} m={2}>
-                    <Card style={{padding:"15px", backgroundColor:"#f7fafe"}} variant="outlined">
-                        <MonitorIcon color="primary" fontSize="large"></MonitorIcon>
-                        <p>Notebooks</p>
-                    </Card>
-                </Grid>
-
-                <Grid item  xs={2} m={2}>
-                    <Card style={{padding:"15px", backgroundColor:"#f7fafe"}} variant="outlined">
-                        <CameraAltIcon color="primary" fontSize="large"></CameraAltIcon>
-                        <p>Cameras</p>
-                    </Card>
-                </Grid>
-
-                <Grid item  xs={2} m={2}>
-                    <Card style={{padding:"15px", backgroundColor:"#f7fafe"}} variant="outlined">
-                        <ViewInArIcon color="primary" fontSize="large"></ViewInArIcon>
-                        <p>Gaming</p>
-                    </Card>
-                </Grid>
-
-                <Grid item  xs={2} m={2}>
-                    <Card style={{padding:"15px", backgroundColor:"#f7fafe"}} variant="outlined">
-                        <VideocamIcon color="primary" fontSize="large"></VideocamIcon>
-                        <p>Video</p>
-                    </Card>
-                </Grid>
+        <Grid xs={10} display={"flex"} padding={3}>
+            {CategoryNames.map((cn) => (
+                <CategoryCardComponent key={cn.id} text={cn.name}></CategoryCardComponent>
+            ))}
         </Grid>
     </Grid>
     )

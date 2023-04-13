@@ -1,18 +1,33 @@
 import React from "react";
-import {Grid, Box, Typography, Button} from "@mui/material"
-import { amber, red } from "@mui/material/colors";
-import { start } from "repl";
+import {Grid, Typography} from "@mui/material"
+import { amber} from "@mui/material/colors";
+import MainButtonComponent from "../Button";
 
-function OfferComponent(){
+const ImageSource="https://assets.maccarianagency.com/backgrounds/img33.png";
+
+const ContainerStyle = {
+    backgroundColor: amber[500],
+    display:"flex",
+    justifyContent:"center"
+}
+
+const GridStyle = {
+    my:10,
+    textAlign:"left",
+    mx:10
+}
+
+
+const OfferComponent = () => {
     return(
-        <Grid container bgcolor={amber[500]} xs={12}  style={{display:"flex"}} justifyContent={"center"}>
-            <Grid item my={2} xs={6} textAlign={"left"}>
+        <Grid container xs={12} sx={ContainerStyle}>
+            <Grid item sx={GridStyle} xs={6}>
                 <Typography variant="h3" fontWeight="bold">Experience your music like never before.</Typography>
                 <Typography mb={3}>If we re no longer the right solution for you, well allow you to export and take your data at anytime for any reason.</Typography>
-                <Button variant="contained" size="large" style={{textTransform:'none'}}>Discover the offer</Button>
+                <MainButtonComponent text="Discover the offer"></MainButtonComponent>
             </Grid>
             <Grid item xs={4}>
-                <img src="https://assets.maccarianagency.com/backgrounds/img33.png" style={{width:"300px"}}></img>
+                <img src={ImageSource} style={{width:"300px"}}></img>
             </Grid>
         </Grid>
     )
