@@ -1,19 +1,19 @@
-import React from "react";
-import {Button} from "@mui/material"
+import React from 'react';
+import { Button } from '@mui/material';
 
 const MainButtonStyle = {
-    textTransform: "none",
-}
+  textTransform: 'none'
+};
 
-type MainButtonComponentProps= {
-    text:string;
-    margin?:string;
-}
+type MainButtonComponentProps = {
+  text: string;
+  margin?: string;
+};
 
-const MainButtonComponent = (props:MainButtonComponentProps) => {
-    return(
-        <Button variant="contained" sx={MainButtonStyle}>{props.text}</Button>
-    )
-}
+const MainButtonComponent = (props: MainButtonComponentProps) => (
+  <Button variant="contained" sx={MainButtonStyle}>
+    {props.text}
+  </Button>
+);
 
 export default MainButtonComponent;
