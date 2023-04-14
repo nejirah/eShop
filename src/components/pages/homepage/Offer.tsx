@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Typography } from '@mui/material';
 import { amber } from '@mui/material/colors';
-import MainButtonComponent from '../Button';
+import MainButtonComponent from '../../common/Button';
 
 const ImageSource = 'https://assets.maccarianagency.com/backgrounds/img33.png';
 

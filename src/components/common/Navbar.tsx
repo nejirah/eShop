@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, Typography, Toolbar, Stack, Button } from '@mui/material';
 import MainButtonComponent from './Button';
+import { Link } from 'react-router-dom';
 
 const ButtonStyle = {
   color: 'inherit',
@@ -20,11 +21,8 @@ const StackStyle = {
 };
 
 const ButtonText = [
-  { id: 1, name: 'Company' },
-  { id: 2, name: 'Account' },
-  { id: 3, name: 'Pages' },
-  { id: 4, name: 'Blog' },
-  { id: 5, name: 'Portofolio' }
+  { id: 1, name: 'homepage' },
+  { id: 2, name: 'products' }
 ];
 
 const NavBarComponent = () => (
@@ -36,13 +34,10 @@ const NavBarComponent = () => (
     </Grid>
     <Grid item xs={7}>
       <Stack sx={StackStyle} direction="row">
-        <Button sx={ButtonStyle}>
-          <Typography fontWeight="bold">Landings</Typography>
-        </Button>
         {ButtonText.map((bt) => (
-          <Button sx={ButtonStyle} key={bt.id}>
-            {bt.name}
-          </Button>
+          <Link to={'/' + bt.name} key={bt.id} style={{ color: 'black' }}>
+            <Button sx={ButtonStyle}>{bt.name}</Button>
+          </Link>
         ))}
         <MainButtonComponent text="Buy now"></MainButtonComponent>
       </Stack>
