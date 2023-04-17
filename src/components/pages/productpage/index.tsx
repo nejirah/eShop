@@ -4,6 +4,7 @@ import PromotionComponent from './Promotion';
 import FilterComponent from './Filter';
 import { Grid } from '@mui/material';
 import ProductComponent from './Product';
+import SubscribeComponent from './Subscribe';
 
 const GridStyle = {
   justifyContent: 'center'
@@ -21,6 +22,7 @@ const ProductsPage = () => (
         <ProductComponent />
       </Grid>
     </Grid>
+    <SubscribeComponent/>
   </div>
 );
 
