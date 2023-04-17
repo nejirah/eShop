@@ -9,7 +9,7 @@ function App() {
     <>
       <NavBarComponent />
       <Routes>
-        <Route path='/' element={<HomePage/>} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/homepage" element={<HomePage />} />
         <Route path="/products" element={<ProductsPage />} />
       </Routes>

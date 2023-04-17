@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Rating, Button, Box } from '@mui/material';
+import { Typography, Rating, Button, Box, Grid } from '@mui/material';
 import TypographyH6Component from '../../common/TypographyH6';
 import { grey } from '@mui/material/colors';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -8,7 +8,8 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const CardStyle = {
   width: '300px',
-  heigth: '350px'
+  heigth: '350px',
+  margin: '10px'
 };
 
 const ImageStyle = {
@@ -41,18 +42,30 @@ const FullWidthButtonStyle = {
   marginLeft: '5px'
 };
 
-const ProductCardComponent = () => (
+const TypographyStyle = {
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
+  overflow: 'hidden'
+};
+
+type ProductCardProps = {
+  productName: string;
+  productPrice: number;
+  image: string;
+  rating: number;
+};
+
+const ProductCardComponent = (props: ProductCardProps) => (
   <Box sx={CardStyle}>
-    <Box sx={ImageStyle}></Box>
+    <Grid sx={ImageStyle} style={{ backgroundImage: "url('" + props.image + "')" }}></Grid>
     <Box>
       <Box sx={BoxStyle}>
-        <TypographyH6Component text="ADDIDAS SHOES"></TypographyH6Component>
-        <TypographyH6Component text="69,90$"></TypographyH6Component>
+        <Typography sx={TypographyStyle}>{props.productName}</Typography>
+        <TypographyH6Component text={props.productPrice.toString() + '$'}></TypographyH6Component>
       </Box>
       <Box sx={RatingBoxStyle}>
-        <Rating name="read-only" readOnly />
+        <Rating name="half-rating" readOnly value={props.rating} precision={0.25} />
         <Typography color={grey[500]} ml={1}>
-          {' '}
           12 Review
         </Typography>
       </Box>

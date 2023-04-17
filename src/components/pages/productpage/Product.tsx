@@ -2,8 +2,17 @@ import React from 'react';
 import { Grid, Typography, Select, MenuItem } from '@mui/material';
 import ProductCardComponent from './ProductCard';
 import PaginationComponent from '../../common/Pagination';
+import data from '../../../data/productsresponse.json';
 
-const age = 'A-Z';
+const Filter = [
+  { id: 1, name: 'A-Z' },
+  { id: 2, name: 'Z-A' },
+  { id: 3, name: 'Best seller' },
+  { id: 4, name: 'Best match' },
+  { id: 5, name: 'Price: low to high' },
+  { id: 6, name: 'Price: high to low' }
+];
+const datas = data.products;
 
 const GridItemStyle = {
   display: 'flex',
@@ -23,16 +32,25 @@ const ProductComponent = () => (
       <Select
         labelId="demo-simple-select-label"
         id="demo-simple-select"
-        label="Age"
-        value={age} // use default value here
+        label="Filter"
+        defaultValue="A-Z"
       >
-        <MenuItem value={'A-Z'}>A-Z</MenuItem>
-        <MenuItem value={'10'}>Ten</MenuItem>
-        <MenuItem value={'20'}>Twenty</MenuItem>
-        <MenuItem value={'30'}>Thirty</MenuItem>
+        {Filter.map((p) => (
+          <MenuItem key={p.id} value={p.name}>
+            {p.name}
+          </MenuItem>
+        ))}
       </Select>
     </Grid>
-    <ProductCardComponent />
+    {datas.map((p) => (
+      <ProductCardComponent
+        key={p.id}
+        productName={p.title}
+        productPrice={p.price}
+        image={p.images[0]}
+        rating={p.rating}
+      />
+    ))}
     <PaginationComponent></PaginationComponent>
   </Grid>
 );
