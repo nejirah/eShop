@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, Typography, Select, MenuItem } from '@mui/material';
-import ProductCardComponent from './ProductCard';
+import ProductCardComponent from './productCard/ProductCard';
 import PaginationComponent from '../../common/Pagination';
 import data from '../../../data/productsresponse.json';
 
@@ -12,7 +12,6 @@ const Filter = [
   { id: 5, name: 'Price: low to high' },
   { id: 6, name: 'Price: high to low' }
 ];
-const datas = data.products;
 
 const GridItemStyle = {
   display: 'flex',
@@ -24,7 +23,7 @@ const ProductComponent = () => (
   <Grid container xs={12}>
     <Grid item xs={6} display={'flex'} alignItems={'center'}>
       <Typography variant="body1" fontWeight="bold">
-        118 results found
+        {data.products.length} results found
       </Typography>
     </Grid>
     <Grid item xs={6} sx={GridItemStyle}>
@@ -42,7 +41,7 @@ const ProductComponent = () => (
         ))}
       </Select>
     </Grid>
-    {datas.map((p) => (
+    {data.products.map((p) => (
       <ProductCardComponent
         key={p.id}
         productName={p.title}

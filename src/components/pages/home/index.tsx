@@ -5,7 +5,7 @@ import CategoriesComponent from './Categories';
 import OfferComponent from './Offer';
 
 const HomePage = () => (
-  <div className="HomePage">
+  <div>
     <ProductComericalComponent />
     <MoreProductsComponent />
     <CategoriesComponent />

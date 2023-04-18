@@ -25,7 +25,6 @@ const PromotionComponent = () => (
       <Grid item justifyContent="start" xs={2}>
         <img src={ImageSource} width="auto" height="100px"></img>
       </Grid>
-
       <Grid xs={8}>
         <TypographyH6Component text="Save up to 30%! Discover our latest promotions"></TypographyH6Component>
         <Typography variant="body1" color="grey">
