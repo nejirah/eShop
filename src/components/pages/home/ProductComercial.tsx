@@ -1,8 +1,8 @@
 import React from 'react';
 import { Grid, Typography } from '@mui/material';
 import { red, blue, grey } from '@mui/material/colors';
-import MainButtonComponent from '../Button';
-import TypographyH3Component from '../TypographyH3';
+import MainButtonComponent from '../../common/Button';
+import TypographyH3Component from '../../common/TypographyH3';
 
 const ImageSource = 'https://assets.maccarianagency.com/backgrounds/img34.png';
 

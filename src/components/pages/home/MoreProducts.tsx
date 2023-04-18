@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Typography } from '@mui/material';
 import { blue } from '@mui/material/colors';
-import TypographyH4Component from '../TypographyH4';
+import TypographyH4Component from '../../common/TypographyH4';
 
 const ImageSource = 'https://assets.maccarianagency.com/backgrounds/img35.png';
 const ImageSource2 = 'https://assets.maccarianagency.com/backgrounds/img36.png';

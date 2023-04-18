@@ -1,9 +1,9 @@
 import React from 'react';
 import { Grid, Typography } from '@mui/material';
 import { amber } from '@mui/material/colors';
-import TypographyH4Component from '../TypographyH4';
-import TypographyH6Component from '../TypographyH6';
-import MainButtonComponent from '../Button';
+import TypographyH4Component from '../../common/TypographyH4';
+import TypographyH6Component from '../../common/TypographyH6';
+import MainButtonComponent from '../../common/Button';
 import CategoryCardComponent from './CategoryCard';
 
 const ContainerStyle = {

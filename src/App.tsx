@@ -1,20 +1,19 @@
 import React from 'react';
-import NavBarComponent from './components/Navbar';
-import ProductComericalComponent from './components/homepage/ProductComercial';
-import MoreProductsComponent from './components/homepage/MoreProducts';
-import CategoriesComponent from './components/homepage/Categories';
-import OfferComponent from './components/homepage/Offer';
-import { Routes } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+import HomePage from './components/pages/home';
+import NavBarComponent from './components/common/Navbar';
+import ProductsPage from './components/pages/products';
 
 function App() {
   return (
-    <div className="App">
+    <>
       <NavBarComponent />
-      <ProductComericalComponent />
-      <MoreProductsComponent />
-      <CategoriesComponent />
-      <OfferComponent />
-    </div>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/homepage" element={<HomePage />} />
+        <Route path="/products" element={<ProductsPage />} />
+      </Routes>
+    </>
   );
 }
 
