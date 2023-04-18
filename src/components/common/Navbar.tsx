@@ -40,7 +40,7 @@ const NavBarComponent = () => (
     <Grid item xs={7}>
       <Stack sx={StackStyle} direction="row">
         {ButtonText.map((bt) => (
-          <NavBarLinkComponent to={'/' + bt.name} key={bt.id}>
+          <NavBarLinkComponent to={`/${bt.name}`} key={bt.id}>
             <Button sx={ButtonStyle}>{bt.name}</Button>
           </NavBarLinkComponent>
         ))}

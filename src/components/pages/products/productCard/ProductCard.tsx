@@ -1,12 +1,19 @@
 import React from 'react';
-import { Typography, Rating, Button, Box, CardMedia } from '@mui/material';
+import { Typography, Rating, Box } from '@mui/material';
 import TypographyH6Component from '../../../common/TypographyH6';
 import { grey } from '@mui/material/colors';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { CardStyled, ImageStyled, BoxStyled, TypographyStyled, RatingBoxStyled, ButtonStyled, FullWidthButtonStyled } from './ProductCardSyles';
-
+import {
+  CardStyled,
+  ImageStyled,
+  BoxStyled,
+  TypographyStyled,
+  RatingBoxStyled,
+  ButtonStyled,
+  FullWidthButtonStyled
+} from './ProductCardSyles';
 
 type ProductCardProps = {
   productName: string;
@@ -31,7 +38,7 @@ const ProductCardComponent = (props: ProductCardProps) => (
       </RatingBoxStyled>
       <RatingBoxStyled>
         <FullWidthButtonStyled variant="contained" fullWidth>
-          <ShoppingCartIcon/>
+          <ShoppingCartIcon />
         </FullWidthButtonStyled>
         <FullWidthButtonStyled variant="outlined" fullWidth>
           <VisibilityIcon></VisibilityIcon>
