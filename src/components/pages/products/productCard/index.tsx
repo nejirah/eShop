@@ -13,14 +13,8 @@ import {
   RatingBoxStyled,
   ButtonStyled,
   FullWidthButtonStyled
-} from './ProductCardSyles';
-
-type ProductCardProps = {
-  productName: string;
-  productPrice: number;
-  image: string;
-  rating: number;
-};
+} from './styles';
+import { ProductCardProps } from './types';
 
 const ProductCardComponent = (props: ProductCardProps) => (
   <CardStyled>
