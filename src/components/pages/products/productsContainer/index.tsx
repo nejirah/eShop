@@ -7,14 +7,17 @@ import { GetProducts } from '../../../../services';
 import { ProductData } from '../productCard/types';
 import { Filter } from './constants';
 import { GridStyled, GridEndStyled } from './styles';
+import { Loader } from '../../../common/Loader';
 
 const ProductComponent = () => {
   const [data, setData] = useState<ProductData[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       const result = await GetProducts;
       setData(result);
+      setLoading(false);
     };
 
     fetchData();
@@ -37,16 +40,18 @@ const ProductComponent = () => {
           ))}
         </Select>
       </GridEndStyled>
-      {data.map((p) => (
-        <ProductCardComponent
-          key={p?.id}
-          productName={p?.title}
-          productPrice={p?.price}
-          image={p?.images[0]}
-          rating={p?.rating}
-        />
-      ))}
-      <PaginationComponent></PaginationComponent>
+      <Loader isLoading={loading}>
+        {data.map((p) => (
+          <ProductCardComponent
+            key={p?.id}
+            productName={p?.title}
+            productPrice={p?.price}
+            image={p?.images[0]}
+            rating={p?.rating}
+          />
+        ))}
+        <PaginationComponent></PaginationComponent>
+      </Loader>
     </Grid>
   );
 };

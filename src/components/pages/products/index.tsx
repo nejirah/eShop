@@ -3,7 +3,7 @@ import BreadCrumbsComponent from '../../common/BreadCrumbs';
 import PromotionComponent from './Promotion';
 import FilterComponent from './Filter';
 import { Grid } from '@mui/material';
-import ProductComponent from './productsContainer/Products';
+import ProductComponent from './productsContainer';
 import SubscribeComponent from './Subscribe';
 
 const GridStyle = {
