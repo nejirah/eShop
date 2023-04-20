@@ -7,11 +7,11 @@ interface LoaderProps {
 }
 
 const LoaderStyle = {
-  display:"flex",
-  justifyContent:"center",
-  alignItems:"center",
-  margin:"20px"
-}
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  margin: '20px'
+};
 
 export const Loader = (props: LoaderProps) => {
   if (props.isLoading) {
