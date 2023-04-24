@@ -8,10 +8,26 @@ import { ProductData } from '../productCard/types';
 import { Filter } from './constants';
 import { GridStyled, GridEndStyled } from './styles';
 import { Loader } from '../../../common/Loader';
+import { PRODUCTS_PER_PAGE } from './constants';
 
 const ProductComponent = () => {
   const [data, setData] = useState<ProductData[]>([]);
   const [loading, setLoading] = useState(true);
+  const [pageNumber, setPageNumber] = useState(1);
+
+  const pageCount = Math.ceil(data.length / PRODUCTS_PER_PAGE);
+
+  const displayProducts = data
+    .slice((pageNumber - 1) * 20, pageNumber * PRODUCTS_PER_PAGE)
+    .map((p) => (
+      <ProductCardComponent
+        key={p?.id}
+        productName={p?.title}
+        productPrice={p?.price}
+        image={p?.images[0]}
+        rating={p?.rating}
+      />
+    ));
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,6 +38,12 @@ const ProductComponent = () => {
 
     fetchData();
   }, []);
+
+  const changePage = (event: React.ChangeEvent<unknown>, selected: number) => {
+    console.log('On change page');
+    console.log(selected);
+    setPageNumber(selected);
+  };
 
   return (
     <Grid container xs={12}>
@@ -41,16 +63,12 @@ const ProductComponent = () => {
         </Select>
       </GridEndStyled>
       <Loader isLoading={loading}>
-        {data.map((p) => (
-          <ProductCardComponent
-            key={p?.id}
-            productName={p?.title}
-            productPrice={p?.price}
-            image={p?.images[0]}
-            rating={p?.rating}
-          />
-        ))}
-        <PaginationComponent></PaginationComponent>
+        {displayProducts}
+        <PaginationComponent
+          count={pageCount}
+          onChange={(event, page) => changePage(event, page)}
+          page={pageNumber}
+        ></PaginationComponent>
       </Loader>
     </Grid>
   );
