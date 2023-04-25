@@ -7,7 +7,6 @@ export const get = async (): Promise<ProductData[]> => {
     const response = await instance.get(products);
     return response.data.products;
   } catch (error) {
-    console.error(error);
-    return [];
+    throw new Error('An error occurred while fetching product data.');
   }
 };

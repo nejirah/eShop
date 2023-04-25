@@ -1,5 +1,5 @@
-import { CircularProgress, Grid } from '@mui/material';
 import React from 'react';
+import { CircularProgress, Grid } from '@mui/material';
 
 interface LoaderProps {
   isLoading: boolean;
@@ -14,12 +14,11 @@ const LoaderStyle = {
 };
 
 export const Loader = (props: LoaderProps) => {
-  if (props.isLoading) {
-    return (
-      <Grid xs={12} sx={LoaderStyle}>
-        <CircularProgress size="60px" />
-      </Grid>
-    );
-  }
-  return <>{props.children}</>;
+  return props.isLoading ? (
+    <Grid xs={12} sx={LoaderStyle}>
+      <CircularProgress size="60px" />
+    </Grid>
+  ) : (
+    <>{props.children}</>
+  );
 };

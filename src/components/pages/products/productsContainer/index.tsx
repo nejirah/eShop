@@ -4,23 +4,28 @@ import ProductCardComponent from '../productCard';
 import PaginationComponent from '../../../common/Pagination';
 import { useEffect, useState } from 'react';
 import { GetProducts } from '../../../../services';
-import { ProductData } from '../productCard/types';
+import { Product } from '../productCard/types';
 import { Filter } from './constants';
 import { GridStyled, GridEndStyled } from './styles';
 import { Loader } from '../../../common/Loader';
 
 const ProductComponent = () => {
-  const [data, setData] = useState<ProductData[]>([]);
+  const [data, setData] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await GetProducts;
-      setData(result);
-      setLoading(false);
-    };
+    try {
+      const fetchData = async () => {
+        const result = await GetProducts;
+        setData(result);
+        setLoading(false);
+      };
 
-    fetchData();
+      fetchData();
+    } catch (error) {
+      setErrorMessage((error as Error).message);
+    }
   }, []);
 
   return (
@@ -40,18 +45,22 @@ const ProductComponent = () => {
           ))}
         </Select>
       </GridEndStyled>
-      <Loader isLoading={loading}>
-        {data.map((p) => (
-          <ProductCardComponent
-            key={p?.id}
-            productName={p?.title}
-            productPrice={p?.price}
-            image={p?.images[0]}
-            rating={p?.rating}
-          />
-        ))}
-        <PaginationComponent></PaginationComponent>
-      </Loader>
+      {errorMessage != '' ? (
+        <p>{errorMessage}</p>
+      ) : (
+        <Loader isLoading={loading}>
+          {data.map((p) => (
+            <ProductCardComponent
+              key={p?.id}
+              title={p?.title}
+              price={p?.price}
+              image={p?.images && p.images[0]}
+              rating={p?.rating}
+            />
+          ))}
+          <PaginationComponent></PaginationComponent>
+        </Loader>
+      )}
     </Grid>
   );
 };
