@@ -29,7 +29,6 @@ const ProductComponent = () => {
     fetchData();
   }, []);
 
-
   return (
     <Grid container xs={12}>
       <GridStyled item xs={6}>

@@ -7,6 +7,6 @@ export const get = async (): Promise<ProductData[]> => {
     const response = await instance.get(products);
     return response.data.products;
   } catch (error) {
-    throw new Error;
+    throw new Error();
   }
 };
