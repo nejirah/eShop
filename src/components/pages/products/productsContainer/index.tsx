@@ -40,8 +40,6 @@ const ProductComponent = () => {
   }, []);
 
   const changePage = (event: React.ChangeEvent<unknown>, selected: number) => {
-    console.log('On change page');
-    console.log(selected);
     setPageNumber(selected);
   };
 
@@ -66,7 +64,7 @@ const ProductComponent = () => {
         {displayProducts}
         <PaginationComponent
           count={pageCount}
-          onChange={(event, page) => changePage(event, page)}
+          onChange={changePage}
           page={pageNumber}
         ></PaginationComponent>
       </Loader>

@@ -13,9 +13,9 @@ type PaginationProps = {
   onChange: (event: React.ChangeEvent<unknown>, selected: number) => void;
 };
 
-const PaginationComponent = (props: PaginationProps) => (
+const PaginationComponent = ({ count, page, onChange }: PaginationProps) => (
   <Grid xs={12} sx={GridStyle}>
-    <Pagination count={props.count} page={props.page} onChange={props.onChange} color="primary" />
+    <Pagination count={count} page={page} onChange={onChange} color="primary" />
   </Grid>
 );
 
