@@ -46,7 +46,7 @@ const ProductComponent = () => {
           ))}
         </Select>
       </GridEndStyled>
-      {errorMessage != '' ? (
+      {errorMessage ? (
         <p>{errorMessage}</p>
       ) : (
         <Loader isLoading={loading}>
