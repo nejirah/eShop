@@ -13,22 +13,16 @@ import {
   RatingBoxStyled,
   ButtonStyled,
   FullWidthButtonStyled
-} from './ProductCardSyles';
+} from './styles';
+import { ProductData } from './types';
 
-type ProductCardProps = {
-  productName: string;
-  productPrice: number;
-  image: string;
-  rating: number;
-};
-
-const ProductCardComponent = (props: ProductCardProps) => (
+const ProductCardComponent = (props: ProductData) => (
   <CardStyled>
     <ImageStyled image={props.image}></ImageStyled>
     <Box>
       <BoxStyled>
-        <TypographyStyled>{props.productName}</TypographyStyled>
-        <TypographyH6Component text={`${props.productPrice.toString()} $`}></TypographyH6Component>
+        <TypographyStyled>{props.title}</TypographyStyled>
+        <TypographyH6Component text={`${props.price.toString()} $`}></TypographyH6Component>
       </BoxStyled>
       <RatingBoxStyled>
         <Rating name="half-rating" readOnly value={props.rating} precision={0.25} />
