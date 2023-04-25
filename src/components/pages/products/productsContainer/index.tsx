@@ -15,18 +15,20 @@ const ProductComponent = () => {
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
-    try {
-      const fetchData = async () => {
+    const fetchData = async () => {
+      try {
         const result = await GetProducts;
         setData(result);
         setLoading(false);
-      };
+      } catch (error) {
+        setErrorMessage('An error occurred while fetching product data.');
+      }
+    };
 
-      fetchData();
-    } catch (error) {
-      setErrorMessage((error as Error).message);
-    }
+    setLoading(true);
+    fetchData();
   }, []);
+
 
   return (
     <Grid container xs={12}>
