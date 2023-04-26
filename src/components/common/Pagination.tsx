@@ -7,9 +7,15 @@ const GridStyle = {
   mt: '50px'
 };
 
-const PaginationComponent = () => (
+type PaginationProps = {
+  count: number;
+  page: number;
+  onChange: (event: React.ChangeEvent<unknown>, selected: number) => void;
+};
+
+const PaginationComponent = ({ count, page, onChange }: PaginationProps) => (
   <Grid xs={12} sx={GridStyle}>
-    <Pagination count={10} color="primary" />
+    <Pagination count={count} page={page} onChange={onChange} color="primary" />
   </Grid>
 );
 

@@ -6,3 +6,5 @@ export const Filter = [
   { id: 5, name: 'Price: low to high' },
   { id: 6, name: 'Price: high to low' }
 ];
+
+export const PRODUCTS_PER_PAGE = 20;
