@@ -14,15 +14,15 @@ import {
   ButtonStyled,
   FullWidthButtonStyled
 } from './styles';
-import { ProductCardProps } from './types';
+import { ProductData } from './types';
 
-const ProductCardComponent = (props: ProductCardProps) => (
+const ProductCardComponent = (props: ProductData) => (
   <CardStyled>
     <ImageStyled image={props.image}></ImageStyled>
     <Box>
       <BoxStyled>
-        <TypographyStyled>{props.productName}</TypographyStyled>
-        <TypographyH6Component text={`${props.productPrice.toString()} $`}></TypographyH6Component>
+        <TypographyStyled>{props.title}</TypographyStyled>
+        <TypographyH6Component text={`${props.price.toString()} $`}></TypographyH6Component>
       </BoxStyled>
       <RatingBoxStyled>
         <Rating name="half-rating" readOnly value={props.rating} precision={0.25} />

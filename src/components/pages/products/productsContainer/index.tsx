@@ -4,17 +4,16 @@ import ProductCardComponent from '../productCard';
 import PaginationComponent from '../../../common/Pagination';
 import { useEffect, useState } from 'react';
 import { GetProducts } from '../../../../services';
-import { ProductData } from '../productCard/types';
+import { Product } from '../productCard/types';
 import { Filter } from './constants';
 import { GridStyled, GridEndStyled } from './styles';
 import { Loader } from '../../../common/Loader';
 import { PRODUCTS_PER_PAGE } from './constants';
 
 const ProductComponent = () => {
-  const [data, setData] = useState<ProductData[]>([]);
+  const [data, setData] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [pageNumber, setPageNumber] = useState(1);
-
   const pageCount = Math.ceil(data.length / PRODUCTS_PER_PAGE);
 
   const displayProducts = data
@@ -28,14 +27,20 @@ const ProductComponent = () => {
         rating={p?.rating}
       />
     ));
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await GetProducts;
-      setData(result);
-      setLoading(false);
+      try {
+        const result = await GetProducts;
+        setData(result);
+        setLoading(false);
+      } catch (error) {
+        setErrorMessage('An error occurred while fetching product data.');
+      }
     };
 
+    setLoading(true);
     fetchData();
   }, []);
 
@@ -68,6 +73,22 @@ const ProductComponent = () => {
           page={pageNumber}
         ></PaginationComponent>
       </Loader>
+      {errorMessage ? (
+        <p>{errorMessage}</p>
+      ) : (
+        <Loader isLoading={loading}>
+          {data.map((p) => (
+            <ProductCardComponent
+              key={p?.id}
+              title={p?.title}
+              price={p?.price}
+              image={p?.images && p.images[0]}
+              rating={p?.rating}
+            />
+          ))}
+          <PaginationComponent></PaginationComponent>
+        </Loader>
+      )}
     </Grid>
   );
 };
