@@ -13,7 +13,7 @@ const GridStyle = {
 const ProductsPage = () => {
   return (
     <div className="ProductPage">
-      <BreadCrumbsComponent />
+      <BreadCrumbsComponent text="Products" />
       <PromotionComponent />
       <Grid container sx={GridStyle}>
         <Grid item xs={3}>

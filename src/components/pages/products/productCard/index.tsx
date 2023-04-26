@@ -15,6 +15,13 @@ import {
   FullWidthButtonStyled
 } from './styles';
 import { ProductData } from './types';
+import { Link } from 'react-router-dom';
+import { styled } from '@mui/system';
+
+const LinkComponent = styled(Link)({
+  color: 'black',
+  textDecoration: 'none'
+});
 
 const ProductCardComponent = (props: ProductData) => (
   <CardStyled>
@@ -39,10 +46,12 @@ const ProductCardComponent = (props: ProductData) => (
         </FullWidthButtonStyled>
       </RatingBoxStyled>
       <div>
-        <ButtonStyled fullWidth>
-          <Typography>See the detail</Typography>
-          <ArrowForwardIosIcon></ArrowForwardIosIcon>
-        </ButtonStyled>
+        <LinkComponent to={`/products/productDetails/${props.id}`}>
+          <ButtonStyled fullWidth>
+            <Typography>See the detail</Typography>
+            <ArrowForwardIosIcon></ArrowForwardIosIcon>
+          </ButtonStyled>
+        </LinkComponent>
       </div>
     </Box>
   </CardStyled>

@@ -9,14 +9,18 @@ const GridStyle = {
   backgroundColor: '#f7fafe'
 };
 
-const BreadCrumbsComponent = () => (
+type BreadCrumbsProps = {
+  text: string;
+};
+
+const BreadCrumbsComponent = (props: BreadCrumbsProps) => (
   <Grid xs={12} sx={GridStyle}>
     <Typography>Product listing</Typography>
     <Breadcrumbs aria-label="breadcrumb">
       <Link underline="hover" href="/homepage">
         Home
       </Link>
-      <Typography>Products</Typography>
+      <Typography>{props.text}</Typography>
     </Breadcrumbs>
   </Grid>
 );

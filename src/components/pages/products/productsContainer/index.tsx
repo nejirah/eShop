@@ -53,6 +53,7 @@ const ProductComponent = () => {
           {data.map((p) => (
             <ProductCardComponent
               key={p?.id}
+              id={p?.id}
               title={p?.title}
               price={p?.price}
               image={p?.images && p.images[0]}
