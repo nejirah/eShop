@@ -46,7 +46,7 @@ const ProductCardComponent = (props: ProductData) => (
         </FullWidthButtonStyled>
       </RatingBoxStyled>
       <div>
-        <LinkComponent to={`/products/productDetails/${props.id}`}>
+        <LinkComponent to={`/products/product-details/${props.id}`}>
           <ButtonStyled fullWidth>
             <Typography>See the detail</Typography>
             <ArrowForwardIosIcon></ArrowForwardIosIcon>

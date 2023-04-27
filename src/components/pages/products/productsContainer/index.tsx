@@ -3,7 +3,7 @@ import { Grid, Typography, Select, MenuItem } from '@mui/material';
 import ProductCardComponent from '../productCard';
 import PaginationComponent from '../../../common/Pagination';
 import { useEffect, useState } from 'react';
-import { GetProducts } from '../../../../services';
+import { getProducts } from '../../../../services';
 import { Product } from '../productCard/types';
 import { Filter } from './constants';
 import { GridStyled, GridEndStyled } from './styles';
@@ -17,7 +17,7 @@ const ProductComponent = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await GetProducts();
+        const result = await getProducts();
         setData(result);
         setLoading(false);
       } catch (error) {

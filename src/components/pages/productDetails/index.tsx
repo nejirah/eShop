@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Product } from '../products/productCard/types';
-import { GetProductsById } from '../../../services';
+import { getProductById } from '../../../services';
 import BreadCrumbsComponent from '../../common/BreadCrumbs';
 import { Grid, Box, Typography, Rating, Divider } from '@mui/material';
 import { Loader } from '../../common/Loader';
@@ -31,7 +31,7 @@ const ProductDetailsComponent = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await GetProductsById(productId);
+        const result = await getProductById(productId);
         setData(result);
         console.log(result);
         setLoading(false);

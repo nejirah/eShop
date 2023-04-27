@@ -13,14 +13,14 @@ type BreadCrumbsProps = {
   text: string;
 };
 
-const BreadCrumbsComponent = (props: BreadCrumbsProps) => (
+const BreadCrumbsComponent = ({ text }: BreadCrumbsProps) => (
   <Grid xs={12} sx={GridStyle}>
     <Typography>Product listing</Typography>
     <Breadcrumbs aria-label="breadcrumb">
       <Link underline="hover" href="/homepage">
         Home
       </Link>
-      <Typography>{props.text}</Typography>
+      <Typography>{text}</Typography>
     </Breadcrumbs>
   </Grid>
 );

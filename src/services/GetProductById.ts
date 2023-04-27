@@ -2,7 +2,7 @@ import { ProductData } from '../components/pages/products/productCard/types';
 import { instance } from './axios';
 import { products } from './constants';
 
-export const getById = async (id: number): Promise<ProductData> => {
+export const getProductById = async (id: number): Promise<ProductData> => {
   try {
     const response = await instance.get(`${products}/${id}`);
     return response.data;
