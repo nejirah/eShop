@@ -17,6 +17,7 @@ import {
 import { ProductData } from './types';
 import { Link } from 'react-router-dom';
 import { styled } from '@mui/system';
+import { LinkText } from '../../../../constants/constants';
 
 const LinkComponent = styled(Link)({
   color: 'black',
@@ -46,7 +47,7 @@ const ProductCardComponent = (props: ProductData) => (
         </FullWidthButtonStyled>
       </RatingBoxStyled>
       <div>
-        <LinkComponent to={`/products/product-details/${props.id}`}>
+        <LinkComponent to={`/${LinkText.products}/${LinkText.productDetails}/${props.id}`}>
           <ButtonStyled fullWidth>
             <Typography>See the detail</Typography>
             <ArrowForwardIosIcon></ArrowForwardIosIcon>

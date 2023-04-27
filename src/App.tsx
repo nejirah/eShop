@@ -4,6 +4,7 @@ import HomePage from './components/pages/home';
 import NavBarComponent from './components/common/Navbar';
 import ProductsPage from './components/pages/products';
 import ProductDetailsComponent from './components/pages/productDetails';
+import { LinkText } from './constants/constants';
 
 function App() {
   return (
@@ -11,9 +12,12 @@ function App() {
       <NavBarComponent />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/homepage" element={<HomePage />} />
-        <Route path="/products" element={<ProductsPage />} />
-        <Route path="/products/product-details/:id" element={<ProductDetailsComponent />} />
+        <Route path={`/${LinkText.homepage}`} element={<HomePage />} />
+        <Route path={`/${LinkText.products}`} element={<ProductsPage />} />
+        <Route
+          path={`/${LinkText.products}/${LinkText.productDetails}/:id`}
+          element={<ProductDetailsComponent />}
+        />
       </Routes>
     </>
   );

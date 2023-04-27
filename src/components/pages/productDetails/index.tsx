@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Product } from '../products/productCard/types';
 import { getProductById } from '../../../services';
-import BreadCrumbsComponent from '../../common/BreadCrumbs';
+import BreadCrumbsComponent from '../../common/BreadCrumbs/BreadCrumbs';
+import { BreadcrumbText } from '../../common/BreadCrumbs/constants';
 import { Grid, Box, Typography, Rating, Divider } from '@mui/material';
 import { Loader } from '../../common/Loader';
 import {
@@ -33,7 +34,6 @@ const ProductDetailsComponent = () => {
       try {
         const result = await getProductById(productId);
         setData(result);
-        console.log(result);
         setLoading(false);
       } catch (error) {
         setErrorMessage('An error occurred while fetching product details.');
@@ -46,7 +46,7 @@ const ProductDetailsComponent = () => {
 
   return (
     <>
-      <BreadCrumbsComponent text="Listing / Product Details" />
+      <BreadCrumbsComponent text={`${BreadcrumbText.Listing} / ${BreadcrumbText.ProductDetails}`} />
       {errorMessage ? (
         <p>{errorMessage}</p>
       ) : (
