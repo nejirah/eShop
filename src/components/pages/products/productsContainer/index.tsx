@@ -17,7 +17,7 @@ const ProductComponent = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await GetProducts;
+        const result = await GetProducts();
         setData(result);
         setLoading(false);
       } catch (error) {
