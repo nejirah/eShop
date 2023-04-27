@@ -1,3 +1,2 @@
-import { get } from './GetProducts';
-
-export const GetProducts = get();
+export { getProducts } from './GetProducts';
+export { getProductById } from './GetProductById';

@@ -34,6 +34,7 @@ export const ButtonStyled = styled(Button)`
   justify-content: space-between !important;
   align-items: center !important;
   margin-top: 5px !important;
+  text-decoration: none !important;
 `;
 
 export const FullWidthButtonStyled = styled(Button)`
