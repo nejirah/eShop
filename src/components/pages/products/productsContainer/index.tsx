@@ -13,21 +13,9 @@ import { PRODUCTS_PER_PAGE } from './constants';
 const ProductComponent = () => {
   const [data, setData] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState('');
   const [pageNumber, setPageNumber] = useState(1);
   const pageCount = Math.ceil(data.length / PRODUCTS_PER_PAGE);
-
-  const displayProducts = data
-    .slice((pageNumber - 1) * 20, pageNumber * PRODUCTS_PER_PAGE)
-    .map((p) => (
-      <ProductCardComponent
-        key={p?.id}
-        productName={p?.title}
-        productPrice={p?.price}
-        image={p?.images[0]}
-        rating={p?.rating}
-      />
-    ));
-  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,6 +36,19 @@ const ProductComponent = () => {
     setPageNumber(selected);
   };
 
+  const displayProducts = data
+    .slice((pageNumber - 1) * 20, pageNumber * PRODUCTS_PER_PAGE)
+    .map((p) => (
+      <ProductCardComponent
+        key={p?.id}
+        id={p?.id}
+        title={p?.title}
+        price={p?.price}
+        image={p?.images && p.images[0]}
+        rating={p?.rating}
+      />
+    ));
+
   return (
     <Grid container xs={12}>
       <GridStyled item xs={6}>
@@ -65,29 +66,16 @@ const ProductComponent = () => {
           ))}
         </Select>
       </GridEndStyled>
-      <Loader isLoading={loading}>
-        {displayProducts}
-        <PaginationComponent
-          count={pageCount}
-          onChange={changePage}
-          page={pageNumber}
-        ></PaginationComponent>
-      </Loader>
       {errorMessage ? (
         <p>{errorMessage}</p>
       ) : (
         <Loader isLoading={loading}>
-          {data.map((p) => (
-            <ProductCardComponent
-              key={p?.id}
-              id={p?.id}
-              title={p?.title}
-              price={p?.price}
-              image={p?.images && p.images[0]}
-              rating={p?.rating}
-            />
-          ))}
-          <PaginationComponent></PaginationComponent>
+          {displayProducts}
+          <PaginationComponent
+            count={pageCount}
+            onChange={changePage}
+            page={pageNumber}
+          ></PaginationComponent>
         </Loader>
       )}
     </Grid>
