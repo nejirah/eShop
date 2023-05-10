@@ -54,7 +54,7 @@ const FilterComponent = ({ filters, setFilters }: FilterState) => {
     setFilters({ ...filters, rating: newRating });
   };
 
-  const dosomething = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
+  const resetFilters = (): void => {
     setFilters({ categories: [], price: [1, 3000], rating: [] });
   };
 
@@ -106,7 +106,7 @@ const FilterComponent = ({ filters, setFilters }: FilterState) => {
               <FormControlLabel
                 key={r.id}
                 value={r.value}
-                control={<Checkbox onChange={handleRatingChange} />}
+                control={<Checkbox checked={filters.rating.includes(r.value)} onChange={handleRatingChange} />}
                 label={r.name}
               />
             ))}
@@ -115,7 +115,7 @@ const FilterComponent = ({ filters, setFilters }: FilterState) => {
         <Divider />
       </Grid>
 
-      <FullWidthButtonStyled variant="outlined" fullWidth onClick={dosomething}>
+      <FullWidthButtonStyled variant="outlined" fullWidth onClick={resetFilters}>
         Reset all
       </FullWidthButtonStyled>
     </GridStyled>
