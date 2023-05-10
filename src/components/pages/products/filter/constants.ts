@@ -23,4 +23,5 @@ export type ProductData = {
 export type FilterState = {
   filters: FilterProps;
   setFilters: React.Dispatch<React.SetStateAction<FilterProps>>;
+  checked: boolean;
 };

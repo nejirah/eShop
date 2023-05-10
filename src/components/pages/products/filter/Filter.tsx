@@ -1,19 +1,10 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import {
-  Checkbox,
-  Divider,
-  FormControlLabel,
-  FormGroup,
-  Grid,
-  Typography,
-  AccordionSummary,
-  AccordionDetails
-} from '@mui/material';
-import { GridStyled, SliderStyled, AccordionStyled } from './styles';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { Checkbox, Divider, FormControlLabel, FormGroup, Grid } from '@mui/material';
+import { GridStyled, SliderStyled } from './styles';
 import { getCategories } from '../../../../services';
 import { FilterState, Rating } from './constants';
 import { FullWidthButtonStyled } from '../productCard/styles';
+import AccordionComponent from '../../../common/Accordion';
 
 const FilterComponent = ({ filters, setFilters }: FilterState) => {
   const [data, setData] = useState<string[]>();
@@ -33,17 +24,15 @@ const FilterComponent = ({ filters, setFilters }: FilterState) => {
     fetchData();
   }, []);
 
-  function handlePriceChange(event: Event, numbers: number | number[]): void {
-    let newPrice = [];
+  const handlePriceChange = (event: Event, numbers: number | number[]): void => {
     if (Array.isArray(numbers)) {
-      newPrice = numbers;
-    } else {
-      throw new Error('The slider is not working');
+      setFilters({ ...filters, price: numbers });
+      return;
     }
-    setFilters({ ...filters, price: newPrice });
-  }
+    throw new Error('The slider is not working');
+  };
 
-  function handleCategoryChange(event: ChangeEvent<HTMLInputElement>, checked: boolean): void {
+  const handleCategoryChange = (event: ChangeEvent<HTMLInputElement>, checked: boolean): void => {
     const newCategories = [...categories];
     const categoryIndex = categories.indexOf(event.target.value);
     if (checked && categoryIndex === -1) {
@@ -52,9 +41,9 @@ const FilterComponent = ({ filters, setFilters }: FilterState) => {
       newCategories.splice(categoryIndex, 1);
     }
     setFilters({ ...filters, categories: newCategories });
-  }
+  };
 
-  function handleRatingChange(event: ChangeEvent<HTMLInputElement>, checked: boolean): void {
+  const handleRatingChange = (event: ChangeEvent<HTMLInputElement>, checked: boolean): void => {
     const newRating = [...rating];
     const ratingIndex = rating.indexOf(Number(event.target.value));
     if (checked && ratingIndex === -1) {
@@ -63,79 +52,70 @@ const FilterComponent = ({ filters, setFilters }: FilterState) => {
       newRating.splice(ratingIndex, 1);
     }
     setFilters({ ...filters, rating: newRating });
-  }
+  };
+
+  const dosomething = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
+    setFilters({ categories: [], price: [1, 3000], rating: [] });
+  };
 
   return (
     <GridStyled>
       <Grid mb={3} item>
-        <AccordionStyled defaultExpanded={true}>
-          <AccordionSummary expandIcon={<KeyboardArrowDownIcon />}>
-            <Typography variant="body1" fontWeight="bold">
-              {`Price: $${price[0]} - $${price[1]}`}{' '}
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <SliderStyled
-              value={price}
-              onChange={handlePriceChange}
-              valueLabelDisplay="auto"
-              disableSwap
-              min={1}
-              max={3000}
-            />
-          </AccordionDetails>
-        </AccordionStyled>
+        <AccordionComponent title={`Price: $${price[0]} - $${price[1]}`}>
+          <SliderStyled
+            value={price}
+            onChange={handlePriceChange}
+            valueLabelDisplay="auto"
+            disableSwap
+            min={1}
+            max={3000}
+          />
+        </AccordionComponent>
         <Divider />
       </Grid>
+
       <Grid mb={3} item>
-        <AccordionStyled defaultExpanded={true}>
-          <AccordionSummary expandIcon={<KeyboardArrowDownIcon />}>
-            <Typography variant="body1" fontWeight="bold">
-              Category
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <FormGroup>
-              {data ? (
-                data.map((category) => (
-                  <FormControlLabel
-                    key={category}
-                    value={category}
-                    control={<Checkbox onChange={handleCategoryChange} />}
-                    label={category.charAt(0).toUpperCase() + category.slice(1).replace(/-/g, ' ')}
-                  />
-                ))
-              ) : (
-                <p>{errorMessage}</p>
-              )}
-            </FormGroup>
-          </AccordionDetails>
-        </AccordionStyled>
-        <Divider></Divider>
-      </Grid>
-      <Grid mb={3} item>
-        <AccordionStyled defaultExpanded={true}>
-          <AccordionSummary expandIcon={<KeyboardArrowDownIcon />}>
-            <Typography variant="body1" fontWeight="bold">
-              Rating
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <FormGroup>
-              {Rating.map((r) => (
+        <AccordionComponent title="Category">
+          <FormGroup>
+            {data ? (
+              data.map((category) => (
                 <FormControlLabel
-                  key={r.id}
-                  value={r.value}
-                  control={<Checkbox onChange={handleRatingChange} />}
-                  label={r.name}
+                  key={category}
+                  value={category}
+                  control={
+                    <Checkbox
+                      checked={filters.categories.includes(category)}
+                      onChange={handleCategoryChange}
+                    />
+                  }
+                  label={category.charAt(0).toUpperCase() + category.slice(1).replace(/-/g, ' ')}
                 />
-              ))}
-            </FormGroup>
-          </AccordionDetails>
-        </AccordionStyled>
+              ))
+            ) : (
+              <p>{errorMessage}</p>
+            )}
+          </FormGroup>
+        </AccordionComponent>
         <Divider />
       </Grid>
-      <FullWidthButtonStyled variant="outlined" fullWidth>
+
+      <Grid mb={3} item>
+        <AccordionComponent title="Rating">
+          <FormGroup>
+            {Rating.map((r) => (
+              <FormControlLabel
+                key={r.id}
+                value={r.value}
+                control={<Checkbox onChange={handleRatingChange} />}
+                label={r.name}
+              />
+            ))}
+          </FormGroup>
+        </AccordionComponent>
+        <Divider />
+      </Grid>
+
+      <FullWidthButtonStyled variant="outlined" fullWidth onClick={dosomething}>
         Reset all
       </FullWidthButtonStyled>
     </GridStyled>

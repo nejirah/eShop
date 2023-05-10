@@ -43,22 +43,18 @@ const ProductsPage = () => {
     fetchData();
   }, []);
 
-  const dataLength = data.filter(
+  const filteredData = data.filter(
     (c) =>
       (!filters.categories.length || filters.categories.includes(c.category)) &&
       (!filters.rating.length || filters.rating.includes(Math.ceil(c.rating))) &&
       (!filters.price.length || (c.price > filters.price[0] && c.price < filters.price[1]))
-  ).length;
+  );
+  const dataLength = filteredData.length;
   const pageCount = Math.ceil(dataLength / PRODUCTS_PER_PAGE);
-
-  const productsToDisplay = data
-    .filter(
-      (p) =>
-        (!filters.categories.length || filters.categories.includes(p.category)) &&
-        (!filters.rating.length || filters.rating.includes(Math.ceil(p.rating))) &&
-        (!filters.price.length || (p.price > filters.price[0] && p.price < filters.price[1]))
-    )
-    .slice((pageNumber - 1) * 20, pageNumber * PRODUCTS_PER_PAGE);
+  const productsToDisplay = filteredData.slice(
+    (pageNumber - 1) * 20,
+    pageNumber * PRODUCTS_PER_PAGE
+  );
 
   const changePage = (event: React.ChangeEvent<unknown>, selected: number) => {
     setPageNumber(selected);
@@ -70,7 +66,7 @@ const ProductsPage = () => {
       <PromotionComponent />
       <Grid container sx={GridStyle}>
         <Grid item xs={3}>
-          <FilterComponent filters={filters} setFilters={setFilters} />
+          <FilterComponent filters={filters} setFilters={setFilters} checked />
         </Grid>
         <Grid item xs={7}>
           {errorMessage ? (
