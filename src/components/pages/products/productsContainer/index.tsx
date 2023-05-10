@@ -1,44 +1,14 @@
 import React from 'react';
 import { Grid, Typography, Select, MenuItem } from '@mui/material';
 import ProductCardComponent from '../productCard';
-import PaginationComponent from '../../../common/Pagination';
-import { useEffect, useState } from 'react';
-import { getProducts } from '../../../../services';
 import { Product } from '../productCard/types';
 import { Filter } from './constants';
 import { GridStyled, GridEndStyled } from './styles';
-import { Loader } from '../../../common/Loader';
-import { PRODUCTS_PER_PAGE } from './constants';
+import { ProductData } from '../filter/constants';
 
-const ProductComponent = () => {
-  const [data, setData] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [pageNumber, setPageNumber] = useState(1);
-  const pageCount = Math.ceil(data.length / PRODUCTS_PER_PAGE);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await getProducts();
-        setData(result);
-        setLoading(false);
-      } catch (error) {
-        setErrorMessage('An error occurred while fetching product data.');
-      }
-    };
-
-    setLoading(true);
-    fetchData();
-  }, []);
-
-  const changePage = (event: React.ChangeEvent<unknown>, selected: number) => {
-    setPageNumber(selected);
-  };
-
-  const displayProducts = data
-    .slice((pageNumber - 1) * 20, pageNumber * PRODUCTS_PER_PAGE)
-    .map((p) => (
+const ProductComponent = (props: ProductData) => {
+  const displayProducts = (data: Product[]) => {
+    return data.map((p) => (
       <ProductCardComponent
         key={p?.id}
         id={p?.id}
@@ -46,19 +16,21 @@ const ProductComponent = () => {
         price={p?.price}
         image={p?.images && p.images[0]}
         rating={p?.rating}
+        category={p?.category}
       />
     ));
+  };
 
   return (
     <Grid container xs={12}>
       <GridStyled item xs={6}>
         <Typography variant="body1" fontWeight="bold">
-          {data.length} results found
+          {props.dataLength} results found
         </Typography>
       </GridStyled>
       <GridEndStyled item xs={6}>
         <Typography mr="10px">Sort by: </Typography>
-        <Select label="Filter" defaultValue="A-Z">
+        <Select label="Sort" defaultValue="A-Z">
           {Filter.map((p) => (
             <MenuItem key={p.id} value={p.name}>
               {p.name}
@@ -66,18 +38,7 @@ const ProductComponent = () => {
           ))}
         </Select>
       </GridEndStyled>
-      {errorMessage ? (
-        <p>{errorMessage}</p>
-      ) : (
-        <Loader isLoading={loading}>
-          {displayProducts}
-          <PaginationComponent
-            count={pageCount}
-            onChange={changePage}
-            page={pageNumber}
-          ></PaginationComponent>
-        </Loader>
-      )}
+      {displayProducts(props.data)}
     </Grid>
   );
 };
