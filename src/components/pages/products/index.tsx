@@ -45,7 +45,7 @@ const ProductsPage = () => {
     fetchData();
   }, []);
 
-  function sortData(a: Product, b: Product): number {
+  const sortData = (a: Product, b: Product) => {
     const titleA = a.title.toLowerCase();
     const titleB = b.title.toLowerCase();
     const priceA = a.price;
@@ -75,7 +75,7 @@ const ProductsPage = () => {
       default:
         return 0;
     }
-  }
+  };
 
   const filteredData = data
     .filter(

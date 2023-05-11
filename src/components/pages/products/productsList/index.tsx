@@ -13,7 +13,7 @@ type ProductProps = {
   setSortType: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const ProductComponent = (props: ProductProps) => {
+const ProductsList = ({ data, dataLength, sortingType, setSortType }: ProductProps) => {
   const displayProducts = (data: Product[]) => {
     return data.map((p) => (
       <ProductCardComponent
@@ -29,20 +29,20 @@ const ProductComponent = (props: ProductProps) => {
   };
 
   const handleSortValueChange = (event: SelectChangeEvent) => {
-    props.setSortType(event.target.value);
+    setSortType(event.target.value);
   };
 
   return (
     <Grid container xs={12}>
       <GridStyled item xs={6}>
         <Typography variant="body1" fontWeight="bold">
-          {props.dataLength} results found
+          {dataLength} results found
         </Typography>
       </GridStyled>
       <GridEndStyled item xs={6}>
         <Typography mr="10px">Sort by: </Typography>
         <FormControl>
-          <Select onChange={handleSortValueChange} value={props.sortingType}>
+          <Select onChange={handleSortValueChange} value={sortingType}>
             {SortMenuItems.map((p) => (
               <MenuItem key={p.id} value={p.name}>
                 {p.name}
@@ -51,9 +51,9 @@ const ProductComponent = (props: ProductProps) => {
           </Select>
         </FormControl>
       </GridEndStyled>
-      {displayProducts(props.data)}
+      {displayProducts(data)}
     </Grid>
   );
 };
 
-export default ProductComponent;
+export default ProductsList;
