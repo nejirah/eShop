@@ -1,4 +1,4 @@
-import React, { Children, ReactNode } from 'react';
+import React from 'react';
 import { Grid, Typography, Select, MenuItem, FormControl, SelectChangeEvent } from '@mui/material';
 import ProductCardComponent from '../productCard';
 import { Product } from '../productCard/types';
@@ -21,12 +21,9 @@ const ProductComponent = (props: ProductData) => {
     ));
   };
 
-  function handleSortValueChange(event: SelectChangeEvent<string>, child: ReactNode): void {
-    if (React.isValidElement(child)) {
-      const childProps = Children.only(child).props.value;
-      props.sortingType.setSortType(childProps);
-    }
-  }
+  const handleSortValueChange = (event: SelectChangeEvent) => {
+    props.sortingType.setSortType(event.target.value);
+  };
 
   return (
     <Grid container xs={12}>
