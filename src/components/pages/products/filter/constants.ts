@@ -1,5 +1,3 @@
-import { Product } from '../productCard/types';
-
 export const Rating = [
   { id: 1, name: '1 star', value: 1 },
   { id: 2, name: '2 star', value: 2 },
@@ -12,12 +10,6 @@ export type FilterProps = {
   categories: string[];
   rating: number[];
   price: number[];
-};
-
-export type ProductData = {
-  data: Product[];
-  dataLength: number;
-  pageCount: number;
 };
 
 export type FilterState = {

@@ -3,15 +3,16 @@ import BreadCrumbsComponent from '../../common/BreadCrumbs/BreadCrumbs';
 import PromotionComponent from './Promotion';
 import FilterComponent from './filter/Filter';
 import { Grid } from '@mui/material';
-import ProductComponent from './productsContainer';
+import ProductComponent from './productsList';
 import SubscribeComponent from './Subscribe';
 import { BreadcrumbText } from '../../common/BreadCrumbs/constants';
 import { FilterProps } from './filter/constants';
 import { Product } from './productCard/types';
 import { getProducts } from '../../../services';
-import { PRODUCTS_PER_PAGE } from './productsContainer/constants';
+import { PRODUCTS_PER_PAGE } from './productsList/constants';
 import { Loader } from '../../common/Loader';
 import PaginationComponent from '../../common/Pagination';
+import { SortType } from './productsList/constants';
 
 const GridStyle = {
   justifyContent: 'center'
@@ -24,6 +25,7 @@ const ProductsPage = () => {
     price: [1, 3000]
   });
 
+  const [sortType, setSortType] = useState<string>(SortType.NONE);
   const [data, setData] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
@@ -43,12 +45,46 @@ const ProductsPage = () => {
     fetchData();
   }, []);
 
-  const filteredData = data.filter(
-    (c) =>
-      (!filters.categories.length || filters.categories.includes(c.category)) &&
-      (!filters.rating.length || filters.rating.includes(Math.ceil(c.rating))) &&
-      (!filters.price.length || (c.price > filters.price[0] && c.price < filters.price[1]))
-  );
+  const sortData = (a: Product, b: Product) => {
+    const titleA = a.title.toLowerCase();
+    const titleB = b.title.toLowerCase();
+    const priceA = a.price;
+    const priceB = b.price;
+
+    switch (sortType) {
+      case SortType.A_Z:
+        if (titleA < titleB) {
+          return -1;
+        } else if (titleA > titleB) {
+          return 1;
+        } else {
+          return 0;
+        }
+      case SortType.Z_A:
+        if (titleA < titleB) {
+          return 1;
+        } else if (titleA > titleB) {
+          return -1;
+        } else {
+          return 0;
+        }
+      case SortType.PRICE_ASC:
+        return priceA - priceB;
+      case SortType.PRICE_DESC:
+        return priceB - priceA;
+      default:
+        return 0;
+    }
+  };
+
+  const filteredData = data
+    .filter(
+      (c) =>
+        (!filters.categories.length || filters.categories.includes(c.category)) &&
+        (!filters.rating.length || filters.rating.includes(Math.ceil(c.rating))) &&
+        (!filters.price.length || (c.price > filters.price[0] && c.price < filters.price[1]))
+    )
+    .sort(sortData);
   const dataLength = filteredData.length;
   const pageCount = Math.ceil(dataLength / PRODUCTS_PER_PAGE);
   const productsToDisplay = filteredData.slice(
@@ -78,6 +114,8 @@ const ProductsPage = () => {
                   data={productsToDisplay}
                   dataLength={dataLength}
                   pageCount={pageCount}
+                  sortingType={sortType}
+                  setSortType={setSortType}
                 />
               </Loader>
               <PaginationComponent count={pageCount} onChange={changePage} page={pageNumber} />
