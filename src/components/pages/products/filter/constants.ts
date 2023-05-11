@@ -1,5 +1,4 @@
 import { Product } from '../productCard/types';
-import { SortStates } from '../productsContainer/constants';
 
 export const Rating = [
   { id: 1, name: '1 star', value: 1 },
@@ -13,13 +12,6 @@ export type FilterProps = {
   categories: string[];
   rating: number[];
   price: number[];
-};
-
-export type ProductData = {
-  data: Product[];
-  dataLength: number;
-  pageCount: number;
-  sortingType: SortStates;
 };
 
 export type FilterState = {

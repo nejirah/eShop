@@ -3,15 +3,16 @@ import BreadCrumbsComponent from '../../common/BreadCrumbs/BreadCrumbs';
 import PromotionComponent from './Promotion';
 import FilterComponent from './filter/Filter';
 import { Grid } from '@mui/material';
-import ProductComponent from './productsContainer';
+import ProductComponent from './productsList';
 import SubscribeComponent from './Subscribe';
 import { BreadcrumbText } from '../../common/BreadCrumbs/constants';
 import { FilterProps } from './filter/constants';
 import { Product } from './productCard/types';
 import { getProducts } from '../../../services';
-import { PRODUCTS_PER_PAGE } from './productsContainer/constants';
+import { PRODUCTS_PER_PAGE } from './productsList/constants';
 import { Loader } from '../../common/Loader';
 import PaginationComponent from '../../common/Pagination';
+import { SortType } from './productsList/constants';
 
 const GridStyle = {
   justifyContent: 'center'
@@ -24,8 +25,7 @@ const ProductsPage = () => {
     price: [1, 3000]
   });
 
-  const [sortType, setSortType] = useState<string>('');
-
+  const [sortType, setSortType] = useState<string>('-');
   const [data, setData] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
@@ -52,7 +52,7 @@ const ProductsPage = () => {
     const priceB = b.price;
 
     switch (sortType) {
-      case 'A-Z':
+      case SortType.A_Z:
         if (titleA < titleB) {
           return -1;
         } else if (titleA > titleB) {
@@ -60,7 +60,7 @@ const ProductsPage = () => {
         } else {
           return 0;
         }
-      case 'Z-A':
+      case SortType.Z_A:
         if (titleA < titleB) {
           return 1;
         } else if (titleA > titleB) {
@@ -68,9 +68,9 @@ const ProductsPage = () => {
         } else {
           return 0;
         }
-      case 'Price: low to high':
+      case SortType.PRICE_ASC:
         return priceA - priceB;
-      case 'Price: high to low':
+      case SortType.PRICE_DESC:
         return priceB - priceA;
       default:
         return 0;
@@ -114,7 +114,8 @@ const ProductsPage = () => {
                   data={productsToDisplay}
                   dataLength={dataLength}
                   pageCount={pageCount}
-                  sortingType={{ sortType, setSortType }}
+                  sortingType={sortType}
+                  setSortType={setSortType}
                 />
               </Loader>
               <PaginationComponent count={pageCount} onChange={changePage} page={pageNumber} />

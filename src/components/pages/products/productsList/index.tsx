@@ -2,11 +2,18 @@ import React from 'react';
 import { Grid, Typography, Select, MenuItem, FormControl, SelectChangeEvent } from '@mui/material';
 import ProductCardComponent from '../productCard';
 import { Product } from '../productCard/types';
-import { SortValues } from './constants';
+import { SortMenuItems } from './constants';
 import { GridStyled, GridEndStyled } from './styles';
-import { ProductData } from '../filter/constants';
 
-const ProductComponent = (props: ProductData) => {
+type ProductProps = {
+  data: Product[];
+  dataLength: number;
+  pageCount: number;
+  sortingType: string;
+  setSortType: React.Dispatch<React.SetStateAction<string>>;
+};
+
+const ProductComponent = (props: ProductProps) => {
   const displayProducts = (data: Product[]) => {
     return data.map((p) => (
       <ProductCardComponent
@@ -22,7 +29,7 @@ const ProductComponent = (props: ProductData) => {
   };
 
   const handleSortValueChange = (event: SelectChangeEvent) => {
-    props.sortingType.setSortType(event.target.value);
+    props.setSortType(event.target.value);
   };
 
   return (
@@ -35,8 +42,8 @@ const ProductComponent = (props: ProductData) => {
       <GridEndStyled item xs={6}>
         <Typography mr="10px">Sort by: </Typography>
         <FormControl>
-          <Select defaultValue={SortValues[0].name} onChange={handleSortValueChange}>
-            {SortValues.map((p) => (
+          <Select onChange={handleSortValueChange} value={props.sortingType}>
+            {SortMenuItems.map((p) => (
               <MenuItem key={p.id} value={p.name}>
                 {p.name}
               </MenuItem>
