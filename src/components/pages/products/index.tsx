@@ -25,7 +25,7 @@ const ProductsPage = () => {
     price: [1, 3000]
   });
 
-  const [sortType, setSortType] = useState<string>('-');
+  const [sortType, setSortType] = useState<string>(SortType.NONE);
   const [data, setData] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
