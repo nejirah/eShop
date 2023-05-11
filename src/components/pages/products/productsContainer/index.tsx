@@ -1,8 +1,8 @@
-import React from 'react';
-import { Grid, Typography, Select, MenuItem } from '@mui/material';
+import React, { Children, ReactNode } from 'react';
+import { Grid, Typography, Select, MenuItem, FormControl, SelectChangeEvent } from '@mui/material';
 import ProductCardComponent from '../productCard';
 import { Product } from '../productCard/types';
-import { Filter } from './constants';
+import { SortValues } from './constants';
 import { GridStyled, GridEndStyled } from './styles';
 import { ProductData } from '../filter/constants';
 
@@ -21,6 +21,13 @@ const ProductComponent = (props: ProductData) => {
     ));
   };
 
+  function handleSortValueChange(event: SelectChangeEvent<string>, child: ReactNode): void {
+    if (React.isValidElement(child)) {
+      const childProps = Children.only(child).props.value;
+      props.sortingType.setSortType(childProps);
+    }
+  }
+
   return (
     <Grid container xs={12}>
       <GridStyled item xs={6}>
@@ -30,13 +37,15 @@ const ProductComponent = (props: ProductData) => {
       </GridStyled>
       <GridEndStyled item xs={6}>
         <Typography mr="10px">Sort by: </Typography>
-        <Select label="Sort" defaultValue="A-Z">
-          {Filter.map((p) => (
-            <MenuItem key={p.id} value={p.name}>
-              {p.name}
-            </MenuItem>
-          ))}
-        </Select>
+        <FormControl>
+          <Select defaultValue={SortValues[0].name} onChange={handleSortValueChange}>
+            {SortValues.map((p) => (
+              <MenuItem key={p.id} value={p.name}>
+                {p.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </GridEndStyled>
       {displayProducts(props.data)}
     </Grid>

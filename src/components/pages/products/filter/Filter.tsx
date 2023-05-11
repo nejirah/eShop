@@ -106,7 +106,12 @@ const FilterComponent = ({ filters, setFilters }: FilterState) => {
               <FormControlLabel
                 key={r.id}
                 value={r.value}
-                control={<Checkbox checked={filters.rating.includes(r.value)} onChange={handleRatingChange} />}
+                control={
+                  <Checkbox
+                    checked={filters.rating.includes(r.value)}
+                    onChange={handleRatingChange}
+                  />
+                }
                 label={r.name}
               />
             ))}
