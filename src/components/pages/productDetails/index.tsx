@@ -14,13 +14,11 @@ import {
   TextBoxStyled,
   TypographyStyled,
   ButtonStyled,
-  SmallButtonStyled
 } from './syles';
 import { grey } from '@mui/material/colors';
 import SyncIcon from '@mui/icons-material/Sync';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-import PhoneIcon from '@mui/icons-material/Phone';
-import EmailIcon from '@mui/icons-material/Email';
+import Contact from '../../common/Contact';
 
 const ProductDetailsComponent = () => {
   const [data, setData] = useState<Product>();
@@ -97,19 +95,7 @@ const ProductDetailsComponent = () => {
               <ButtonStyled variant="outlined" fullWidth>
                 Add to favorite
               </ButtonStyled>
-              <Box>
-                <Typography>Need a support?</Typography>
-                <BoxStyled>
-                  <SmallButtonStyled color="info" variant="text">
-                    <PhoneIcon />
-                    Contact sales
-                  </SmallButtonStyled>
-                  <SmallButtonStyled variant="text">
-                    <EmailIcon />
-                    Email us
-                  </SmallButtonStyled>
-                </BoxStyled>
-              </Box>
+              <Contact></Contact>
             </Grid>
           </GridStyled>
         </Loader>

@@ -39,7 +39,7 @@ const CategoriesComponent = () => (
         text="Buy Music Instruments & Accessories Online:"
       ></TypographyH6Component>
       <TypographyH6Component color="gray" text="Securely and Comfortably"></TypographyH6Component>
-      <MainButtonComponent margin="30px" text="See all categories"></MainButtonComponent>
+      <MainButtonComponent text="See all categories"></MainButtonComponent>
     </Grid>
 
     <Grid xs={10} display={'flex'} padding={3}>
