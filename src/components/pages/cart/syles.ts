@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { Box, Button, CardMedia, Grid, Select, TextField, Typography } from '@mui/material';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { grey } from '@mui/material/colors';
+import { Link } from 'react-router-dom';
 
 export const GridStyled = styled(Grid)`
   display: flex;
@@ -29,12 +30,13 @@ export const Icon = styled(ShoppingCartOutlinedIcon)`
 export const TypographyStyled = styled(Typography)`
   color: ${grey[600]};
   text-align: center;
+  margin-bottom: 20px;
 `;
 
 export const ImageStyled = styled(CardMedia)`
   height: 130px;
   width: 200px;
-  background-size: cover;
+  background-size: contain;
   background-position: center center;
   border-radius: 10px;
   margin-right: 20px;
@@ -50,13 +52,13 @@ export const BoxStyled = styled(Grid)`
 export const TypographyParagraph = styled(Typography)`
   color: ${grey[500]};
   margin-right: 5px;
-  margin-bottom:5px;
+  margin-bottom: 5px;
 `;
 
 export const IconButtonContainer = styled(Box)`
   display: flex;
   color: ${grey[500]};
-  margin-bottom:5px;
+  margin-bottom: 5px;
 `;
 
 export const PriceBoxStyle = styled(Box)`
@@ -103,4 +105,26 @@ export const MainButtonStyled = styled(ButtonStyled)`
 
 export const PriceStyled = styled(Typography)`
   font-weight: bold;
+`;
+
+export const IconButton = styled(Button)`
+  text-transform: none;
+  color: ${grey[500]};
+  display: flex;
+  justify-content: flex-start;
+`;
+
+export const BoxButton = styled(Box)`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const LinkComponent = styled(Link)({
+  color: 'black',
+  textDecoration: 'none'
+});
+
+export const TypographyTitle = styled(Typography)`
+  text-overflow: ellipsis;
+  font-weight: semi-bold;
 `;

@@ -49,7 +49,7 @@ const NavBarComponent = () => (
             <Button sx={ButtonStyle}>{bt.name}</Button>
           </NavBarLinkComponent>
         ))}
-        <NavBarLinkComponent to={`/${LinkText.homepage}/${LinkText.cart}/1`}>
+        <NavBarLinkComponent to={`/${LinkText.homepage}/${LinkText.cart}`}>
           <ShoppingCartOutlinedIcon />
         </NavBarLinkComponent>
       </Stack>

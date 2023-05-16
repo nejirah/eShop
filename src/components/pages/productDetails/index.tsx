@@ -13,7 +13,7 @@ import {
   BoxStyled,
   TextBoxStyled,
   TypographyStyled,
-  ButtonStyled,
+  ButtonStyled
 } from './syles';
 import { grey } from '@mui/material/colors';
 import SyncIcon from '@mui/icons-material/Sync';

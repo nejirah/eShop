@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import HomePage from './components/pages/home';
 import NavBarComponent from './components/common/Navbar';
@@ -7,9 +7,19 @@ import ProductDetailsComponent from './components/pages/productDetails';
 import { LinkText } from './constants/constants';
 import Cart from './components/pages/cart';
 
+export const CartContext = createContext<
+  [number[], React.Dispatch<React.SetStateAction<number[]>>]
+>([
+  [],
+  () => {
+    console.log('it works');
+  }
+]);
+
 function App() {
+  const [cartItems, setCartItems] = useState<number[]>([]);
   return (
-    <>
+    <CartContext.Provider value={[cartItems, setCartItems]}>
       <NavBarComponent />
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -19,9 +29,9 @@ function App() {
           path={`/${LinkText.products}/${LinkText.productDetails}/:id`}
           element={<ProductDetailsComponent />}
         />
-        <Route path={`/${LinkText.homepage}/${LinkText.cart}/:id`} element={<Cart />} />
+        <Route path={`/${LinkText.homepage}/${LinkText.cart}`} element={<Cart />} />
       </Routes>
-    </>
+    </CartContext.Provider>
   );
 }
 
