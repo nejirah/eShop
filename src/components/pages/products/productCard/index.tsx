@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Typography, Rating, Box, Alert, Snackbar } from '@mui/material';
+import { Typography, Rating, Box } from '@mui/material';
 import TypographyH6Component from '../../../common/TypographyH6';
 import { grey } from '@mui/material/colors';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -19,6 +19,7 @@ import { Link } from 'react-router-dom';
 import { styled } from '@mui/system';
 import { LinkText } from '../../../../constants/constants';
 import { CartContext } from '../../../../App';
+import AlertSnackbar from '../../../common/Alert';
 
 const LinkComponent = styled(Link)({
   color: 'black',
@@ -27,24 +28,23 @@ const LinkComponent = styled(Link)({
 
 const ProductCardComponent = (props: ProductData) => {
   const [cartItems, setCartItems] = useContext(CartContext);
-  const [open, setOpen] = useState(false);
+  const [openAlert, setOpenAlert] = useState(false);
 
-  function handleClick(): void {
+  const addToCart = () => {
     const newArray = [...cartItems];
     if (props.id != null) {
-      const id = props.id;
-      newArray.push(id);
+      const Itemid = props.id;
+      newArray.push({ id: Itemid, quantity: 1 });
     }
     setCartItems(newArray);
-    setOpen(true);
-  }
+    setOpenAlert(true);
+  };
 
-  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+  const handleCloseAlert = (event?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
       return;
     }
-
-    setOpen(false);
+    setOpenAlert(false);
   };
 
   return (
@@ -63,7 +63,7 @@ const ProductCardComponent = (props: ProductData) => {
             </Typography>
           </RatingBoxStyled>
           <RatingBoxStyled>
-            <FullWidthButtonStyled variant="contained" fullWidth onClick={handleClick}>
+            <FullWidthButtonStyled variant="contained" fullWidth onClick={addToCart}>
               <ShoppingCartIcon />
             </FullWidthButtonStyled>
             <FullWidthButtonStyled variant="outlined" fullWidth>
@@ -80,11 +80,11 @@ const ProductCardComponent = (props: ProductData) => {
           </div>
         </Box>
       </CardStyled>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-          Product: {props.title} is successfully added to a cart !
-        </Alert>
-      </Snackbar>
+      <AlertSnackbar
+        open={openAlert}
+        handleClose={handleCloseAlert}
+        text={`Product: ${props.title} is successfully added to the cart!`}
+      />
     </>
   );
 };

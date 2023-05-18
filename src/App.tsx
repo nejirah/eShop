@@ -6,18 +6,20 @@ import ProductsPage from './components/pages/products';
 import ProductDetailsComponent from './components/pages/productDetails';
 import { LinkText } from './constants/constants';
 import Cart from './components/pages/cart';
+import { CartItem } from './components/pages/cart/cartItem/constants';
 
 export const CartContext = createContext<
-  [number[], React.Dispatch<React.SetStateAction<number[]>>]
+  [CartItem[], React.Dispatch<React.SetStateAction<CartItem[]>>]
 >([
   [],
   () => {
-    console.log('it works');
+    //
   }
 ]);
 
 function App() {
-  const [cartItems, setCartItems] = useState<number[]>([]);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+
   return (
     <CartContext.Provider value={[cartItems, setCartItems]}>
       <NavBarComponent />

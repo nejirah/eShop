@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Product } from '../products/productCard/types';
 import { getProductById } from '../../../services';
@@ -19,6 +19,8 @@ import { grey } from '@mui/material/colors';
 import SyncIcon from '@mui/icons-material/Sync';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import Contact from '../../common/Contact';
+import { CartContext } from '../../../App';
+import AlertSnackbar from '../../common/Alert';
 
 const ProductDetailsComponent = () => {
   const [data, setData] = useState<Product>();
@@ -26,6 +28,8 @@ const ProductDetailsComponent = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const { id = '0' } = useParams<{ id?: string }>();
   const productId = parseInt(id, 10);
+  const [cartItems, setCartItems] = useContext(CartContext);
+  const [openAlert, setOpenAlert] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,6 +45,23 @@ const ProductDetailsComponent = () => {
     setLoading(true);
     fetchData();
   }, [productId]);
+
+  const addToCart = () => {
+    const newArray = [...cartItems];
+    if (data?.id != null) {
+      const Itemid = data.id;
+      newArray.push({ id: Itemid, quantity: 1 });
+    }
+    setCartItems(newArray);
+    setOpenAlert(true);
+  };
+
+  const handleCloseAlert = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenAlert(false);
+  };
 
   return (
     <>
@@ -68,7 +89,7 @@ const ProductDetailsComponent = () => {
                 </TypographyStyled>
                 <Rating readOnly value={data ? data.rating : 0} precision={0.25} />
               </BoxStyled>
-              <ButtonStyled variant="contained" fullWidth>
+              <ButtonStyled variant="contained" fullWidth onClick={addToCart}>
                 Add to cart
               </ButtonStyled>
               <Divider></Divider>
@@ -100,6 +121,11 @@ const ProductDetailsComponent = () => {
           </GridStyled>
         </Loader>
       )}
+      <AlertSnackbar
+        open={openAlert}
+        handleClose={handleCloseAlert}
+        text={`Product: ${data?.title} is successfully added to the cart!`}
+      />
     </>
   );
 };
