@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import {
   BoxStyled,
   GridInline,
@@ -14,7 +14,7 @@ import {
 } from './styles';
 import { Box, Divider, FormControl, MenuItem, SelectChangeEvent, Typography } from '@mui/material';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import { CartContext } from '../../../../App';
+import { useCartItem } from '../../../../hooks/useCart';
 
 type cartItemProps = {
   id?: number;
@@ -24,10 +24,11 @@ type cartItemProps = {
   images?: string[];
   price: number;
   brand?: string;
+  open?: boolean;
 };
 
 const CartItem = (props: cartItemProps) => {
-  const [cartItems, setCartItems] = useContext(CartContext);
+  const { cartItems, setCartItems } = useCartItem();
   const selectedValue = cartItems.find((item) => item.id === props.id)?.quantity || 0;
 
   const removeProduct = (id: number): void => {

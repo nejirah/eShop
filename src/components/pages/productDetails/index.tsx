@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Product } from '../products/productCard/types';
 import { getProductById } from '../../../services';
@@ -19,7 +19,7 @@ import { grey } from '@mui/material/colors';
 import SyncIcon from '@mui/icons-material/Sync';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import Contact from '../../common/Contact';
-import { CartContext } from '../../../App';
+import { useCartItem } from '../../../hooks/useCart';
 import AlertSnackbar from '../../common/Alert';
 
 const ProductDetailsComponent = () => {
@@ -28,8 +28,8 @@ const ProductDetailsComponent = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const { id = '0' } = useParams<{ id?: string }>();
   const productId = parseInt(id, 10);
-  const [cartItems, setCartItems] = useContext(CartContext);
   const [openAlert, setOpenAlert] = useState(false);
+  const { cartItems, setCartItems } = useCartItem();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -56,12 +56,8 @@ const ProductDetailsComponent = () => {
     setOpenAlert(true);
   };
 
-  const handleCloseAlert = (event?: React.SyntheticEvent | Event, reason?: string) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    setOpenAlert(false);
-  };
+  const handleCloseAlert = (event?: React.SyntheticEvent | Event, reason?: string) =>
+    reason !== 'clickaway' && setOpenAlert(false);
 
   return (
     <>

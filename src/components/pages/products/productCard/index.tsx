@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Typography, Rating, Box } from '@mui/material';
 import TypographyH6Component from '../../../common/TypographyH6';
 import { grey } from '@mui/material/colors';
@@ -18,8 +18,8 @@ import { ProductData } from './types';
 import { Link } from 'react-router-dom';
 import { styled } from '@mui/system';
 import { LinkText } from '../../../../constants/constants';
-import { CartContext } from '../../../../App';
 import AlertSnackbar from '../../../common/Alert';
+import { useCartItem } from '../../../../hooks/useCart';
 
 const LinkComponent = styled(Link)({
   color: 'black',
@@ -27,25 +27,21 @@ const LinkComponent = styled(Link)({
 });
 
 const ProductCardComponent = (props: ProductData) => {
-  const [cartItems, setCartItems] = useContext(CartContext);
   const [openAlert, setOpenAlert] = useState(false);
+  const { cartItems, setCartItems } = useCartItem();
 
   const addToCart = () => {
     const newArray = [...cartItems];
-    if (props.id != null) {
+    if (props?.id != null) {
       const Itemid = props.id;
       newArray.push({ id: Itemid, quantity: 1 });
     }
-    setCartItems(newArray);
     setOpenAlert(true);
+    setCartItems(newArray);
   };
 
-  const handleCloseAlert = (event?: React.SyntheticEvent | Event, reason?: string) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    setOpenAlert(false);
-  };
+  const handleCloseAlert = (event?: React.SyntheticEvent | Event, reason?: string) =>
+    reason !== 'clickaway' && setOpenAlert(false);
 
   return (
     <>

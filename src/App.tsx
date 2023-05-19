@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import HomePage from './components/pages/home';
 import NavBarComponent from './components/common/Navbar';
@@ -6,22 +6,11 @@ import ProductsPage from './components/pages/products';
 import ProductDetailsComponent from './components/pages/productDetails';
 import { LinkText } from './constants/constants';
 import Cart from './components/pages/cart';
-import { CartItem } from './components/pages/cart/cartItem/constants';
-
-export const CartContext = createContext<
-  [CartItem[], React.Dispatch<React.SetStateAction<CartItem[]>>]
->([
-  [],
-  () => {
-    //
-  }
-]);
+import { CartProvider } from './hooks/useCart';
 
 function App() {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
-
   return (
-    <CartContext.Provider value={[cartItems, setCartItems]}>
+    <CartProvider>
       <NavBarComponent />
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -33,7 +22,7 @@ function App() {
         />
         <Route path={`/${LinkText.homepage}/${LinkText.cart}`} element={<Cart />} />
       </Routes>
-    </CartContext.Provider>
+    </CartProvider>
   );
 }
 

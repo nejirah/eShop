@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TypographyH6Component from '../../common/TypographyH6';
 import {
   GridInline,
@@ -10,20 +10,20 @@ import {
 import SubscribeComponent from '../products/Subscribe';
 import { Grid } from '@mui/material';
 import Contact from '../../common/Contact';
-import { CartContext } from '../../../App';
 import { Product } from '../products/productCard/types';
 import { getProducts } from '../../../services';
 import EmptyCart from './emptyCart';
 import CartItem from './cartItem';
 import OrderSummary from './orderSummary';
-import AlertSnackbar from '../../common/Alert';
 import { CartItem as CartItemProps } from './cartItem/constants';
+import { useCartItem } from '../../../hooks/useCart';
+import AlertSnackbar from '../../common/Alert';
 
 const Cart = () => {
-  const [cartItems] = useContext(CartContext);
-  const [openAlert, setOpenAlert] = useState(false);
   const [data, setData] = useState<Product[]>([]);
   const [errorMessage, setErrorMessage] = useState('');
+  const { cartItems } = useCartItem();
+  const [openAlert, setOpenAlert] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,15 +42,11 @@ const Cart = () => {
     return foundCartItem !== undefined;
   });
 
-  const handleCloseAlert = (event?: React.SyntheticEvent | Event, reason?: string) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    setOpenAlert(false);
-  };
+  const handleCloseAlert = (event?: React.SyntheticEvent | Event, reason?: string) =>
+    reason !== 'clickaway' && setOpenAlert(false);
 
-  const displayProducts = (data: Product[]) => {
-    return data.map((p) => (
+  const displayProducts = (data: Product[]) =>
+    data.map((p) => (
       <CartItem
         key={p.id}
         images={p.images}
@@ -62,14 +58,16 @@ const Cart = () => {
         brand={p.brand}
       />
     ));
-  };
 
   const displayOrderSummary = (data: Product[]) => {
     return data.map((p) => {
-      const cartItem = cartItems.find((item) => item.id === p.id);
-      const quantity = cartItem ? cartItem.quantity : 1;
       return (
-        <OrderSummary key={p.id} title={p.title} price={p.price} quantity={quantity}></OrderSummary>
+        <OrderSummary
+          key={p.id}
+          title={p.title}
+          price={p.price}
+          id={p.id ? p.id : 0}
+        ></OrderSummary>
       );
     });
   };
@@ -85,7 +83,7 @@ const Cart = () => {
     return `$${totalPrice}`;
   };
 
-  if (cartItems.length != 0) {
+  if (cartItems.length) {
     return (
       <>
         <GridInline container xs={12}>
@@ -98,14 +96,20 @@ const Cart = () => {
           <Grid item xs={3}>
             <OrderSummaryStyled>
               <TypographyH6Component text="Order summary"></TypographyH6Component>
-              {!errorMessage ? displayOrderSummary(filteredData) : <>errorMessage</>}
-              <OrderDescriptionText mt={3}>
-                <TypographyH6Component text="Order total" />
-                <TypographyH6Component text={totalPrice(filteredData, cartItems)} />
-              </OrderDescriptionText>
-              <MainButtonStyled fullWidth variant="contained">
-                Checkout
-              </MainButtonStyled>
+              {!errorMessage ? (
+                <>
+                  {displayOrderSummary(filteredData)}
+                  <OrderDescriptionText mt={3}>
+                    <TypographyH6Component text="Order total" />
+                    <TypographyH6Component text={totalPrice(filteredData, cartItems)} />
+                  </OrderDescriptionText>
+                  <MainButtonStyled fullWidth variant="contained">
+                    Checkout
+                  </MainButtonStyled>
+                </>
+              ) : (
+                <>errorMessage</>
+              )}
             </OrderSummaryStyled>
             <ContactStyled>
               <Contact />
@@ -125,11 +129,6 @@ const Cart = () => {
     <>
       <EmptyCart />
       <SubscribeComponent />
-      <AlertSnackbar
-        open={openAlert}
-        handleClose={handleCloseAlert}
-        text="Product is successfully removed from a cart !"
-      />
     </>
   );
 };
