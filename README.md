@@ -1,46 +1,50 @@
-# Getting Started with Create React App
+eShop Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the eShop project! This project is a type of e-commerce web application developed during my internship. The main goal of the project was to gain hands-on experience with React and TypeScript while building various features commonly found in an e-commerce platform.
+Technologies Used
+* React
+* TypeScript
+* Material UI
 
-## Available Scripts
+Features
 
-In the project directory, you can run:
+Home Page
+The eShop project includes a home page that serves as the entry point for users. It provides a brief introduction to the shop and showcases featured products or promotions.
 
-### `npm start`
+Products Page
+The products page displays a list of products available in the eShop. Users can browse through the product catalog and apply sorting and filtering options to refine their search. The implemented sorting options allow users to sort products by price, or title. The filtering options enable users to narrow down their search based on specific product attributes such as category, price, or rating.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Product Details Page
+The product details page provides comprehensive information about a selected product. Users can view detailed descriptions, product images, customer reviews, and other relevant details. Additionally, this page offers options for users to add the product to their cart. 
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Add to Cart Functionality
+The eShop project includes an "Add to Cart" functionality, allowing users to add products to their shopping cart. The cart keeps track of selected items, their quantities, and prices. Users can review the items in their cart and update quantities.
 
-### `npm test`
+Dummy API
+Since the project focused on frontend development, a dummy API was utilized to simulate communication with a backend server. This API provided mock data for products, enabling the implementation and testing of various frontend features without requiring a fully functional backend.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Project Structure
+The project follows a modular structure to ensure maintainability and scalability. Here's an overview of the main folders and files:
+    * src/
+    * components/: Contains reusable React components used throughout the application.
+    * pages/: Contains individual pages/components for different sections of the eShop (home page, products page, product details page, etc.).
+    * hooks/: Holds context providers and consumers for managing global state within the application.
+    * services/: Holds all the methods to ensure data from the dummy API.
+    * App.tsx: The entry point of the application, rendering the main components and routing.
+    * index.tsx: The main file that renders the React application into the DOM.
+    
+Setup and Running the Project
+To run the eShop project locally, follow these steps:
+1. Clone the repository: git clone <repository-url>
+2. Navigate to the project directory: cd eShop
+3. Install the dependencies: npm install
+4. Start the development server: npm start
+5. Open your browser and access the project at http://localhost:3000
+Note: Ensure you have Node.js and npm installed on your system before running the project.
+  
+Conclusion
+The eShop project showcases my knowledge and skills in React, TypeScript, and Material UI. Through building features such as a home page, products page with sorting and filtering, product details page, and add to cart functionality, I gained valuable experience in developing user-friendly applications.
+  
+Furthermore, I am committed to continuing my work on the eShop project, ensuring its ongoing improvement and expansion. I will actively seek opportunities to enhance its functionality, incorporate user feedback, and implement additional features to create an even more comprehensive and engaging shopping experience. Stay tuned for future updates and developments! 
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Happy coding!
