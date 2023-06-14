@@ -5,6 +5,7 @@ export type Product = {
   rating: number;
   images?: string[];
   category: string;
+  brand?: string;
 };
 
 export interface ProductData extends Omit<Product, 'images'> {

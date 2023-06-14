@@ -47,10 +47,3 @@ export const ButtonStyled = styled(Button)`
   text-transform: none;
   margin-bottom: 20px;
 `;
-
-export const SmallButtonStyled = styled(ButtonStyled)`
-  height: 45px;
-  text-transform: none;
-  margin-bottom: 20px;
-  color: grey;
-`;

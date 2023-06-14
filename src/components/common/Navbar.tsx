@@ -1,8 +1,9 @@
 import React from 'react';
 import { Grid, Typography, Toolbar, Stack, Button } from '@mui/material';
-import MainButtonComponent from './Button';
 import { Link } from 'react-router-dom';
 import { styled } from '@mui/system';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import { LinkText } from '../../constants/constants';
 
 const ButtonStyle = {
   color: 'inherit',
@@ -27,7 +28,11 @@ const ButtonText = [
 ];
 
 const NavBarLinkComponent = styled(Link)({
-  color: 'black'
+  color: 'black',
+  display: 'flex',
+  alignItems: 'center',
+  textDecoration: 'none',
+  margin: '20px'
 });
 
 const NavBarComponent = () => (
@@ -37,14 +42,16 @@ const NavBarComponent = () => (
         <Typography variant="h5">eShop logo</Typography>
       </Toolbar>
     </Grid>
-    <Grid item xs={7}>
+    <Grid item xs={6}>
       <Stack sx={StackStyle} direction="row">
         {ButtonText.map((bt) => (
           <NavBarLinkComponent to={`/${bt.name}`} key={bt.id}>
             <Button sx={ButtonStyle}>{bt.name}</Button>
           </NavBarLinkComponent>
         ))}
-        <MainButtonComponent text="Buy now"></MainButtonComponent>
+        <NavBarLinkComponent to={`/${LinkText.homepage}/${LinkText.cart}`}>
+          <ShoppingCartOutlinedIcon />
+        </NavBarLinkComponent>
       </Stack>
     </Grid>
   </Grid>

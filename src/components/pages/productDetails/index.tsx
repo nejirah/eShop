@@ -13,14 +13,14 @@ import {
   BoxStyled,
   TextBoxStyled,
   TypographyStyled,
-  ButtonStyled,
-  SmallButtonStyled
+  ButtonStyled
 } from './syles';
 import { grey } from '@mui/material/colors';
 import SyncIcon from '@mui/icons-material/Sync';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-import PhoneIcon from '@mui/icons-material/Phone';
-import EmailIcon from '@mui/icons-material/Email';
+import Contact from '../../common/Contact';
+import { useCartItem } from '../../../hooks/useCart';
+import AlertSnackbar from '../../common/Alert';
 
 const ProductDetailsComponent = () => {
   const [data, setData] = useState<Product>();
@@ -28,6 +28,8 @@ const ProductDetailsComponent = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const { id = '0' } = useParams<{ id?: string }>();
   const productId = parseInt(id, 10);
+  const [openAlert, setOpenAlert] = useState(false);
+  const { cartItems, setCartItems } = useCartItem();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,6 +45,19 @@ const ProductDetailsComponent = () => {
     setLoading(true);
     fetchData();
   }, [productId]);
+
+  const addToCart = () => {
+    const newArray = [...cartItems];
+    if (data?.id != null) {
+      const Itemid = data.id;
+      newArray.push({ id: Itemid, quantity: 1 });
+    }
+    setCartItems(newArray);
+    setOpenAlert(true);
+  };
+
+  const handleCloseAlert = (event?: React.SyntheticEvent | Event, reason?: string) =>
+    reason !== 'clickaway' && setOpenAlert(false);
 
   return (
     <>
@@ -70,7 +85,7 @@ const ProductDetailsComponent = () => {
                 </TypographyStyled>
                 <Rating readOnly value={data ? data.rating : 0} precision={0.25} />
               </BoxStyled>
-              <ButtonStyled variant="contained" fullWidth>
+              <ButtonStyled variant="contained" fullWidth onClick={addToCart}>
                 Add to cart
               </ButtonStyled>
               <Divider></Divider>
@@ -97,23 +112,16 @@ const ProductDetailsComponent = () => {
               <ButtonStyled variant="outlined" fullWidth>
                 Add to favorite
               </ButtonStyled>
-              <Box>
-                <Typography>Need a support?</Typography>
-                <BoxStyled>
-                  <SmallButtonStyled color="info" variant="text">
-                    <PhoneIcon />
-                    Contact sales
-                  </SmallButtonStyled>
-                  <SmallButtonStyled variant="text">
-                    <EmailIcon />
-                    Email us
-                  </SmallButtonStyled>
-                </BoxStyled>
-              </Box>
+              <Contact></Contact>
             </Grid>
           </GridStyled>
         </Loader>
       )}
+      <AlertSnackbar
+        open={openAlert}
+        handleClose={handleCloseAlert}
+        text={`Product: ${data?.title} is successfully added to the cart!`}
+      />
     </>
   );
 };

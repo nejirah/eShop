@@ -7,7 +7,6 @@ const MainButtonStyle = {
 
 type MainButtonComponentProps = {
   text: string;
-  margin?: string;
 };
 
 const MainButtonComponent = (props: MainButtonComponentProps) => (
