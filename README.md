@@ -33,18 +33,3 @@ The project follows a modular structure to ensure maintainability and scalabilit
     * App.tsx: The entry point of the application, rendering the main components and routing.
     * index.tsx: The main file that renders the React application into the DOM.
     
-Setup and Running the Project
-To run the eShop project locally, follow these steps:
-1. Clone the repository: git clone <repository-url>
-2. Navigate to the project directory: cd eShop
-3. Install the dependencies: npm install
-4. Start the development server: npm start
-5. Open your browser and access the project at http://localhost:3000
-Note: Ensure you have Node.js and npm installed on your system before running the project.
-  
-Conclusion
-The eShop project showcases my knowledge and skills in React, TypeScript, and Material UI. Through building features such as a home page, products page with sorting and filtering, product details page, and add to cart functionality, I gained valuable experience in developing user-friendly applications.
-  
-Furthermore, I am committed to continuing my work on the eShop project, ensuring its ongoing improvement and expansion. I will actively seek opportunities to enhance its functionality, incorporate user feedback, and implement additional features to create an even more comprehensive and engaging shopping experience. Stay tuned for future updates and developments! 
-
-Happy coding!
